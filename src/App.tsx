@@ -1,15 +1,27 @@
 
 import './App.css'
+import { decrement, increment } from './redux/features/counter/counterSlice';
+import { useAppDispatch, useAppSelector } from './redux/hook';
 
 function App() {
+
+  const dispatch = useAppDispatch();
+  const {count} = useAppSelector((state) => state.counter);
+
+  const handleIncrement = (amount:number) =>{
+    dispatch(increment(amount)); //obossoi call kete hba
+  }
+
+  const handleDecrement =(amount:number)=>{
+    dispatch(decrement(amount));
+  }
 
   return (
     <div>
       <h1>Counter with Redux</h1>
-
-      <button>Increment</button>
-      <div>0</div>
-      <button>Decrement</button>
+      <button onClick={()=>handleIncrement(5)}>Increment By 5</button>
+      <div>{count}</div>
+      <button onClick={()=>handleDecrement(5)}>Decrement By 5</button>
     </div>
   )
 }
